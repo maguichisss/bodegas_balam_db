@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+
+  db:
+    image: postgres:15
+    container_name: bodegas_balam_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: bodegas_balam
+    ports:
+      - "5432:5432"
+    volumes:
+      - bodegas_balam_data:/var/lib/postgresql/data
+      - ./init:/docker-entrypoint-initdb.d
+    networks:
+      - bodegas_network
+
+volumes:
+  bodegas_balam_data:
+
+networks:
+  bodegas_network:
+    driver: bridge
+    name: bodegas_network
